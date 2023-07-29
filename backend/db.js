@@ -8,7 +8,8 @@ const mongoDB = async () => {
     let fetched_data = mongoose.connection.db.collection("food_items");
     //toArray returns a promise which can be resolved with a await
     let data=await fetched_data.find({}).toArray() 
-    console.log(data);
+    //console.log(data);
+    console.log("data fetched")
   } catch (error) {
     console.log('err: ', error);
   }
