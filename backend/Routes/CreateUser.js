@@ -5,6 +5,7 @@ const { validationResult,body } = require('express-validator');
 
 router.post("/createuser",
 
+//validation
 [
     body('email').isEmail(),
     body('password','password len should be >5').isLength({min: 5})
