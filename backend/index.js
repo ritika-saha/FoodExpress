@@ -5,13 +5,31 @@ const mondoDB=require('./db')
 const mongoDB = require('./db')
 mongoDB()
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
+
+/**app.use((req,res,next)=>{
+  res.setHeader("Access-Control-Allow-Origin","http://localhost:3000")
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-Wish, Content-Type, Accept"
+  )
+  next()
+})*/
+
+//use this or gives cors error
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 })
 
 app.use(express.json());
-
 app.use('/api',require('./Routes/CreateUser'))
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+
+
