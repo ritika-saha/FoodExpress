@@ -7,7 +7,8 @@ const router=express.Router()
 const User=require('../models/User')
 const { validationResult,body } = require('express-validator');
 const bcrypt=require('bcryptjs')
-
+const jwt=require('jsonwebtoken')
+const jwtSecret= "SachinKyahaiSachinMelappuSaSachinHaiJhingurSaLadka"
 
 //user creation end point
 router.post("/createuser",
@@ -65,12 +66,23 @@ let email=req.body.email
       if(!userData){
         return res.status(400).json({errors: "Invalid Credential"})
       }
-      //if the password in the data containing the given email does not match the user entered password
-      if(req.body.password!==userData.password){
+      //gives bool value in return
+      const pwdCompare= await bcrypt.compare(req.body.password,userData.password)
+     
+      if(!pwdCompare){
         return res.status(400).json({errors: "Invalid Credential"})
       }
+
+      const data={
+        user:{
+            id: userData.id
+        }
+      }
+
+      //auth token generation
+      const authToken=jwt.sign(data,jwtSecret)
       
-      return res.json({success:true})
+      return res.json({success:true, authToken:authToken})
         
     } catch(error){
         console.log(error)
