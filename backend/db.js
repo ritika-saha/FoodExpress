@@ -4,14 +4,21 @@ const mongoURI='mongodb+srv://FoodExpress:jkhGUbSTNXQRwyDo@cluster0.cpx0kdu.mong
 const mongoDB = async () => {
   try {
     await mongoose.connect(mongoURI);
-    console.log('Connected!');
-    let fetched_data = mongoose.connection.db.collection("food_items");
+    console.log('Connected! ༼ つ ◕_◕ ༽つ');
+    let fetched_data =  mongoose.connection.db.collection("food_items");
     //toArray returns a promise which can be resolved with a await
     let data=await fetched_data.find({}).toArray() 
-    //console.log(data);
-    console.log("data fetched")
+    console.log("data fetched");
+    let foodCategory=  mongoose.connection.db.collection("foodCategory");
+
+    let foodcat=await foodCategory.find({}).toArray()
+    
+
+    //by doing this we can use and update the food items anywhere (global variable)
+    global.food_items=data;
+    global.foodCategory=foodcat;
   } catch (error) {
-    console.log('err: ', error);
+    console.log("error");
   }
 };
 
