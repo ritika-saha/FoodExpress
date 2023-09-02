@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatchCart, useCart } from "./ContextReducer";
 
 const Card = (props) => {
 
   let dispatch=useDispatchCart()
   let data=useCart()
+  //reference acts like id and use ref like get element by id in vanilla js
+  const priceRef=useRef()
   let options=props.options
   let priceOptions=Object.keys(options)
   const [qty, setQty]=useState(1)
@@ -15,6 +17,9 @@ const Card = (props) => {
     console.log(data)
   }
   let finalPrice=qty * parseInt(options[size]);
+  useEffect(()=>{
+      setSize(priceRef.current.value)
+  },[])
   return (
     <div>
       <div className="card mt-3" style={{ width: "19rem", maxHeight: "460px" }}>
@@ -31,7 +36,7 @@ const Card = (props) => {
                 );
               })}
             </select>
-            <select className="m-2 h-100 bg-warning rounded" onChange={(e)=>setSize(e.target.value)}>
+            <select className="m-2 h-100 bg-warning rounded"  ref={priceRef} onChange={(e)=>setSize(e.target.value)}>
               {
                 priceOptions.map((data)=>{
                   return (
