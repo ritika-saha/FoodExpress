@@ -10,6 +10,8 @@ export const Footer = () => {
        
       </Link>
       <span className="text-muted">© 2023 FoodExpress, Inc</span>
+      <span>---------</span>
+      <span className='text-muted'>Made with 💜 by Ritika</span>
     </div>
 
     
