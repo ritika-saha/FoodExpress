@@ -21,6 +21,9 @@ switch(action.type){
                 return arr
             })
             return arr
+    case "DROP":
+        let emtarray=[]
+        return emtarray
      default:
             console.log("error in reducer")
 }

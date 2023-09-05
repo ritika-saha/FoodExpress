@@ -16,25 +16,27 @@ export default function Cart() {
   //   dispatch({type:"REMOVE",index:index})
   // }
 
-  const handleCheckOut = async () => {
-    let userEmail = localStorage.getItem("userEmail");
-    // console.log(data,localStorage.getItem("userEmail"),new Date())
-    let response = await fetch("http://localhost:5000/api/auth/orderData", {
-      // credentials: 'include',
-      // Origin:"http://localhost:3000/login",
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
+  
+
+  const handleCheckout=async()=>{
+    let userEmail=localStorage.getItem("userEmail")
+    let response=await fetch("http://localhost:5000/api/orderData",{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
       },
-      body: JSON.stringify({
-        order_data: data,
-        email: userEmail,
-        order_date: new Date().toDateString()
-      })
-    });
-    console.log("JSON RESPONSE:::::", response.status)
-    if (response.status === 200) {
-      dispatch({ type: "DROP" })
+      body:JSON.stringify(
+        {
+          order_data:data,
+          email:userEmail,
+          order_date:new Date().toDateString()
+        }
+      )
+    }
+    )
+    console.log("------order response-----", response)
+    if(response.status===200){
+      dispatch({type:"DROP"})
     }
   }
 
@@ -69,7 +71,7 @@ export default function Cart() {
         </table>
         <div><h1 className='fs-2'>Total Price: {totalPrice}/-</h1></div>
         <div>
-          <button className='btn bg-warning mt-5 ' onClick={handleCheckOut} > Check Out </button>
+          <button className='btn bg-warning mt-5 ' onClick={handleCheckout} > Check Out </button>
         </div>
       </div>
 
