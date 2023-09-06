@@ -1,9 +1,17 @@
 const express = require('express')
 const app = express()
-const port = 5000
+const port = process.env.PORT || 5000
 const mondoDB=require('./db')
 const mongoDB = require('./db')
 mongoDB()
+//-----------------------------------------
+const cors = require("cors")
+const cookieParser = require("cookie-parser")
+app.use(cors())
+app.use(cookieParser())
+
+//--------------------------------
+
 
 
 /**app.use((req,res,next)=>{
