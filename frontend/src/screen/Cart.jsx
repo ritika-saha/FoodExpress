@@ -17,10 +17,11 @@ export default function Cart() {
   // }
 
   
+  //http://localhost:5000/api/orderData
 
   const handleCheckout=async()=>{
     let userEmail=localStorage.getItem("userEmail")
-    let response=await fetch("http://localhost:5000/api/orderData",{
+    let response=await fetch("https://foodexpress-v6zu.onrender.com/api/orderData",{
       method:'POST',
       headers:{
         'Content-Type':'application/json'
